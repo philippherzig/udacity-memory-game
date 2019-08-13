@@ -19,18 +19,27 @@ function shuffle(array) {
 var cards = shuffle(cards);
 
 /* Remove all cards from the deck */
-
 let deck = document.querySelector('.deck');
 while (deck.hasChildNodes()) {
     deck.removeChild(deck.lastChild);
 }
 
 /* Add shuffled cards to deck */
-
 for (let card of cards) {
     deck.append(card);
-  }
+}
 
+/* Display cards on click */
+function showCard(){
+    this.classList.toggle("open");
+    this.classList.toggle("show");
+}
+
+
+for (let card of cards) {
+    card.addEventListener("click", showCard);
+   // card.classList.toggle("open");
+}
 
 /*
  * set up the event listener for a card. If a card is clicked:

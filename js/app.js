@@ -1,16 +1,7 @@
-/*
- * Create a list that holds all of your cards
- */
+/*  Create cards array */
+var cards = [...document.querySelectorAll('.card')];
 
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
-// Shuffle function from http://stackoverflow.com/a/2450976
+/* Shuffle cards array */
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -24,6 +15,21 @@ function shuffle(array) {
 
     return array;
 }
+
+var cards = shuffle(cards);
+
+/* Remove all cards from the deck */
+
+let deck = document.querySelector('.deck');
+while (deck.hasChildNodes()) {
+    deck.removeChild(deck.lastChild);
+}
+
+/* Add shuffled cards to deck */
+
+for (let card of cards) {
+    deck.append(card);
+  }
 
 
 /*

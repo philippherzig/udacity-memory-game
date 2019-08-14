@@ -1,45 +1,77 @@
-/*  Create cards array */
-var cards = [...document.querySelectorAll('.card')];
+/* 
+/   VARIABLES
+*/
 
-/* Shuffle cards array */
+
+let openCards = []                                      // Cards array for comparison
+
+/* 
+/   FUNCTIONS
+*/
+
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
+    var currentIndex = array.length, temporaryValue, randomIndex
     while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
+        randomIndex = Math.floor(Math.random() * currentIndex)
+        currentIndex -= 1
+        temporaryValue = array[currentIndex]
+        array[currentIndex] = array[randomIndex]
+        array[randomIndex] = temporaryValue
     }
-
     return array;
 }
 
-var cards = shuffle(cards);
+function toggle(card) {
+    card.classList.toggle("open")
+    card.classList.toggle("show")
+}
 
-/* Remove all cards from the deck */
-let deck = document.querySelector('.deck');
+function compareOpenCards() {
+    let image1 = openCards[0].querySelector("i").classList[1]
+    let image2 = openCards[1].querySelector("i").classList[1]
+    if (image1 == image2) {
+        return true
+    }
+}
+
+function cardClick() {
+    if (openCards.length == 0) {
+        toggle(this);
+        openCards.push(this);
+
+    } else if (openCards.length == 1) {
+        toggle(this);
+        openCards.push(this);
+        if (compareOpenCards()) {
+            console.log("similar")
+        } else {
+            console.log("not similar")
+        }
+    }
+}
+
+/* 
+/   SEQUENCE
+*/
+
+//  Get shuffled cards
+var cards = shuffle([...document.querySelectorAll('.card')])
+
+// Get all cards currently in deck
+let deck = document.querySelector('.deck')
+
+// Remove current cards from deck
 while (deck.hasChildNodes()) {
-    deck.removeChild(deck.lastChild);
+    deck.removeChild(deck.lastChild)
 }
 
-/* Add shuffled cards to deck */
+// Add shuffled cards with eventlistener to deck
 for (let card of cards) {
-    deck.append(card);
-}
-
-/* Display cards on click */
-function showCard(){
-    this.classList.toggle("open");
-    this.classList.toggle("show");
+    deck.append(card)
+    card.addEventListener("click", cardClick)
 }
 
 
-for (let card of cards) {
-    card.addEventListener("click", showCard);
-   // card.classList.toggle("open");
-}
 
 /*
  * set up the event listener for a card. If a card is clicked:

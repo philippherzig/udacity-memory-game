@@ -1,9 +1,9 @@
 /* 
-/   VARIABLES
+/   GLOBAL VARIABLES
 */
 
-
-let openCards = []                                      // Cards array for comparison
+let openCards = []                          // Cards array for comparison
+let counter = 0                             // Counts the players moves
 
 /* 
 /   FUNCTIONS
@@ -26,12 +26,18 @@ function toggle(card) {
     card.classList.toggle("show")
 }
 
-function compareOpenCards() {
+function cardsMatching() {
     let image1 = openCards[0].querySelector("i").classList[1]
     let image2 = openCards[1].querySelector("i").classList[1]
     if (image1 == image2) {
         return true
     }
+}
+
+function addMove() {
+    counter++
+    document.querySelector(".moves").innerText = counter
+
 }
 
 function cardClick() {
@@ -42,10 +48,19 @@ function cardClick() {
     } else if (openCards.length == 1) {
         toggle(this);
         openCards.push(this);
-        if (compareOpenCards()) {
-            console.log("similar")
+        addMove()
+        if (cardsMatching()) {
+            openCards[0].removeEventListener("click", cardClick)
+            openCards[1].removeEventListener("click", cardClick)
+            openCards = []
         } else {
-            console.log("not similar")
+            setTimeout(function () {
+                toggle(openCards[0])
+                toggle(openCards[1])
+                openCards = []
+                counter
+            }, 700);
+
         }
     }
 }

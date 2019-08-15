@@ -2,8 +2,21 @@
 /   GLOBAL VARIABLES
 */
 
-let openCards = []                          // Cards array for comparison
-let counter = 0                             // Counts the players moves
+// Cards array for comparison
+let openCards = []
+
+// Counts the players moves                      
+let counter = 0
+
+// Variable that holds all cards
+var cards = [...document.querySelectorAll(".card")]
+
+// Variable that holds all stars
+let stars = [...document.querySelectorAll(".fa-star")]
+
+// Defines the max move limts needed to achieve stars
+let threeStarsLimit = 20
+let twoStarsLimit = 30
 
 /* 
 /   FUNCTIONS
@@ -34,10 +47,41 @@ function cardsMatching() {
     }
 }
 
+function resetStars() {
+    for (star of stars) {
+        star.classList.remove("red")
+        star.classList.remove("lightgrey")
+        star.classList.remove("gold")
+    }
+}
+
 function addMove() {
     counter++
     document.querySelector(".moves").innerText = counter
+    if (counter == twoStarsLimit) {
+        resetStars()
+        stars[0].classList.add("red")
+        stars[1].classList.add("lightgrey")
+        stars[2].classList.add("lightgrey")
+    }
+    if (counter == threeStarsLimit) {
+        stars[0].classList.add("gold")
+        stars[1].classList.add("gold")
+        stars[2].classList.add("lightgrey")
+    }
+}
 
+function checkWin() {
+    let win = true
+    for (card of cards) {
+        if (card.classList.contains("match") == false) {
+            win = false
+        }
+    }
+    if (win == true) {
+        document.querySelector(".overlay").style.display = "flex"
+        document.querySelector(".final-moves").innerText = `Moves: ${counter}`
+    }
 }
 
 function cardClick() {
@@ -50,51 +94,68 @@ function cardClick() {
         openCards.push(this);
         addMove()
         if (cardsMatching()) {
+            openCards[0].classList.add("match")
+            openCards[1].classList.add("match")
             openCards[0].removeEventListener("click", cardClick)
             openCards[1].removeEventListener("click", cardClick)
             openCards = []
+            checkWin()
         } else {
+            openCards[0].classList.add("nomatch")
+            openCards[1].classList.add("nomatch")
             setTimeout(function () {
+                openCards[0].classList.remove("nomatch")
+                openCards[1].classList.remove("nomatch")
                 toggle(openCards[0])
                 toggle(openCards[1])
                 openCards = []
-                counter
-            }, 700);
+            }, 900);
 
         }
     }
+}
+
+function resetAll() {
+
+    // Hide congratulations overlay
+    document.querySelector(".overlay").style.display = "none"
+    
+    // Reset counter
+    counter = 0
+    document.querySelector(".moves").innerText = counter
+
+    // Reset stars
+    resetStars()
+
+    // Close open cards
+    for (let card of cards) {
+        card.classList.remove("open")
+        card.classList.remove("show")
+        card.classList.remove("match")
+        card.classList.remove("nomatch")
+    }
+
+    //  Get shuffled cards
+    cards = shuffle(cards)
+
+    // Get all cards currently in deck
+    let deck = document.querySelector('.deck')
+
+    // Remove current cards from deck
+    while (deck.hasChildNodes()) {
+        deck.removeChild(deck.lastChild)
+    }
+
+    // Add shuffled cards with eventlistener to deck
+    for (let card of cards) {
+        deck.append(card)
+        card.addEventListener("click", cardClick)
+    }
+
 }
 
 /* 
 /   SEQUENCE
 */
 
-//  Get shuffled cards
-var cards = shuffle([...document.querySelectorAll('.card')])
-
-// Get all cards currently in deck
-let deck = document.querySelector('.deck')
-
-// Remove current cards from deck
-while (deck.hasChildNodes()) {
-    deck.removeChild(deck.lastChild)
-}
-
-// Add shuffled cards with eventlistener to deck
-for (let card of cards) {
-    deck.append(card)
-    card.addEventListener("click", cardClick)
-}
-
-
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
+document.addEventListener('load', resetAll())

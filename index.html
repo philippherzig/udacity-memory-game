@@ -24,7 +24,7 @@
 
         	<span class="moves">0</span> Moves
 
-            <div class="restart">
+            <div class="restart" onclick="resetAll()">
         		<i class="fa fa-repeat"></i>
         	</div>
         </section>
@@ -79,6 +79,17 @@
                 <i class="fa fa-cube"></i>
             </li>
         </ul>
+    </div>
+
+    <div class="overlay">
+        <div class="alert">
+            <div class="emote">🎉</div>
+            <div class="message">
+                <div class="title">Congratulations! You solved the game</div>
+                <p class="final-moves">Moves: </p>
+            </div>
+            <button onclick="resetAll()">Play again</button>
+        </div>
     </div>
 
     <script src="js/app.js"></script>

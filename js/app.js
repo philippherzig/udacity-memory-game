@@ -96,11 +96,10 @@ function checkWin() {
     if (win == true) {
         if (counter < threeStarsLimit) {
             document.querySelector(".emote").innerText = "⭐️⭐️⭐️"
-        } else if (counter < twoStarsLimit) {
-            document.querySelector(".emote").innerText = "️️️️⭐️️️️⭐️"
-        } else {
-            document.querySelector(".emote").innerText = "⭐️"
         }
+        if (counter < twoStarsLimit) {
+            document.querySelector(".emote").innerText = "️️️️⭐️️️️⭐️"
+        } 
         document.querySelector(".final-moves").innerText = `Moves: ${counter}`
 
         document.querySelector(".final-time").innerText = `Seconds: ${secondsElapsed}`

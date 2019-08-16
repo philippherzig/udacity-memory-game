@@ -44,6 +44,7 @@ function open(card) {
     card.classList.add("open")
     card.classList.add("show")
     card.removeEventListener("click", cardClick)
+    openCards.push(card)
 }
 
 function close(card) {
@@ -101,12 +102,12 @@ function checkWin() {
 
 function startTimer() {
     startTime = Date.now()
-    setInterval(updateTimer,1000);
+    setInterval(updateTimer,1000)
 }
 
 function updateTimer() {
     secondsElapsed++
-    document.getElementById("timer").innerText = `Seconds: ${secondsElapsed}` 
+    document.querySelector(".timer").innerText = `Seconds: ${secondsElapsed}`
 }
 
 function cardClick() {
@@ -119,11 +120,9 @@ function cardClick() {
 
     if (openCards.length == 0) {
         open(this);
-        openCards.push(this);
 
     } else if (openCards.length == 1) {
         open(this);
-        openCards.push(this);
         addMove()
         if (cardsMatching()) {
             openCards[0].classList.add("match")

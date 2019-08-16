@@ -208,7 +208,7 @@ button {
  * Timer
  */
 
- #timer {
+ .timer {
      display: inline;
      margin-left: 70px;
  }

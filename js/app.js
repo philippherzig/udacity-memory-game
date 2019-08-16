@@ -15,11 +15,14 @@ var cards = [...document.querySelectorAll(".card")]
 let stars = [...document.querySelectorAll(".fa-star")]
 
 // Defines the max move limts needed to achieve stars
-let threeStarsLimit = 20
-let twoStarsLimit = 30
+let threeStarsLimit = 15
+let twoStarsLimit = 25
 
 // Helper to check if first click happened
 let firstClick = false
+
+// Variable that holds the current seconds elapsed
+let secondsElapsed = 0
 
 /* 
 /   FUNCTIONS
@@ -92,6 +95,7 @@ function checkWin() {
     if (win == true) {
         document.querySelector(".overlay").style.display = "flex"
         document.querySelector(".final-moves").innerText = `Moves: ${counter}`
+        document.querySelector(".final-time").innerText = `Seconds: ${secondsElapsed}`
     }
 }
 
@@ -101,9 +105,8 @@ function startTimer() {
 }
 
 function updateTimer() {
-    let timeElapsed = Date.now() - startTime
-    let seconds = Math.floor(timeElapsed/1000)
-    document.getElementById("timer").innerText = `Seconds: ${seconds}` 
+    secondsElapsed++
+    document.getElementById("timer").innerText = `Seconds: ${secondsElapsed}` 
 }
 
 function cardClick() {

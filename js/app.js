@@ -94,15 +94,24 @@ function checkWin() {
         }
     }
     if (win == true) {
-        document.querySelector(".overlay").style.display = "flex"
+        if (counter < threeStarsLimit) {
+            document.querySelector(".emote").innerText = "⭐️⭐️⭐️"
+        } else if (counter < twoStarsLimit) {
+            document.querySelector(".emote").innerText = "️️️️⭐️️️️⭐️"
+        } else {
+            document.querySelector(".emote").innerText = "⭐️"
+        }
         document.querySelector(".final-moves").innerText = `Moves: ${counter}`
+
         document.querySelector(".final-time").innerText = `Seconds: ${secondsElapsed}`
+        
+        document.querySelector(".overlay").style.display = "flex"
     }
 }
 
 function startTimer() {
     startTime = Date.now()
-    setInterval(updateTimer,1000)
+    setInterval(updateTimer, 1000)
 }
 
 function updateTimer() {
@@ -150,7 +159,7 @@ function resetAll() {
 
     // Hide congratulations overlay
     document.querySelector(".overlay").style.display = "none"
-    
+
     // Reset counter
     counter = 0
     document.querySelector(".moves").innerText = counter

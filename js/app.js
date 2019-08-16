@@ -21,8 +21,9 @@ let twoStarsLimit = 25
 // Helper to check if first click happened
 let firstClick = false
 
-// Variable that holds the current seconds elapsed
+// Helpers for the timer feature
 let secondsElapsed = 0
+let timerIntervall
 
 /* 
 /   FUNCTIONS
@@ -94,6 +95,7 @@ function checkWin() {
         }
     }
     if (win == true) {
+        clearInterval(timerIntervall)
         if (counter < threeStarsLimit) {
             document.querySelector(".emote").innerText = "⭐️⭐️⭐️"
         }
@@ -110,7 +112,7 @@ function checkWin() {
 
 function startTimer() {
     startTime = Date.now()
-    setInterval(updateTimer, 1000)
+    timerIntervall = setInterval(updateTimer, 1000)
 }
 
 function updateTimer() {
@@ -165,6 +167,13 @@ function resetAll() {
 
     // Reset stars
     resetStars()
+
+    // Reset timer
+    // Helper to check if first click happened
+    firstClick = false
+    clearInterval(timerIntervall)
+    secondsElapsed = 0
+    document.querySelector(".timer").innerText = `Seconds: ${secondsElapsed}`
 
     // Close open cards
     for (let card of cards) {

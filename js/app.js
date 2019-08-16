@@ -18,6 +18,9 @@ let stars = [...document.querySelectorAll(".fa-star")]
 let threeStarsLimit = 20
 let twoStarsLimit = 30
 
+// Helper to check if first click happened
+let firstClick = false
+
 /* 
 /   FUNCTIONS
 */
@@ -84,7 +87,25 @@ function checkWin() {
     }
 }
 
+function startTimer() {
+    startTime = Date.now()
+    setInterval(updateTimer,1000);
+}
+
+function updateTimer() {
+    let timeElapsed = Date.now() - startTime
+    let seconds = Math.floor(timeElapsed/1000)
+    document.getElementById("timer").innerText = `Seconds: ${seconds}` 
+}
+
 function cardClick() {
+
+    // Start timer if it is the first click
+    if (firstClick == false) {
+        firstClick = true
+        startTimer()
+    }
+
     if (openCards.length == 0) {
         toggle(this);
         openCards.push(this);

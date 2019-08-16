@@ -201,3 +201,13 @@ button {
     font-weight: bold;
     cursor: pointer;
 }
+
+
+/*
+ * Timer
+ */
+
+ #timer {
+     display: inline;
+     margin-left: 70px;
+ }

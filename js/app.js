@@ -37,10 +37,18 @@ function shuffle(array) {
     return array;
 }
 
-function toggle(card) {
-    card.classList.toggle("open")
-    card.classList.toggle("show")
+function open(card) {
+    card.classList.add("open")
+    card.classList.add("show")
+    card.removeEventListener("click", cardClick)
 }
+
+function close(card) {
+    card.classList.remove("open")
+    card.classList.remove("show")
+    card.addEventListener("click", cardClick)
+}
+
 
 function cardsMatching() {
     let image1 = openCards[0].querySelector("i").classList[1]
@@ -107,11 +115,11 @@ function cardClick() {
     }
 
     if (openCards.length == 0) {
-        toggle(this);
+        open(this);
         openCards.push(this);
 
     } else if (openCards.length == 1) {
-        toggle(this);
+        open(this);
         openCards.push(this);
         addMove()
         if (cardsMatching()) {
@@ -127,8 +135,8 @@ function cardClick() {
             setTimeout(function () {
                 openCards[0].classList.remove("nomatch")
                 openCards[1].classList.remove("nomatch")
-                toggle(openCards[0])
-                toggle(openCards[1])
+                close(openCards[0])
+                close(openCards[1])
                 openCards = []
             }, 900);
 

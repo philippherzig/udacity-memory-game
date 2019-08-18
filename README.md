@@ -13,4 +13,4 @@ Simply download or clone this repository and run index.html in a local browser o
 ## Credits
 * HTML and CSS is based on the [starter project provided by Udactiy](https://github.com/udacity/fend-project-memory-game)
 * Icons by [Font Awesome](https://fontawesome.com)
-* Code Font by [Google Fonts](https://fonts.google.com/specimen/Coda)
+* Coda Font by [Google Fonts](https://fonts.google.com/specimen/Coda)

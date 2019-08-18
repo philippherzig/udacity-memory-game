@@ -9,7 +9,7 @@ let openCards = []
 let counter = 0
 
 // Variable that holds all cards
-var cards = [...document.querySelectorAll(".card")]
+let cards = [...document.querySelectorAll(".card")]
 
 // Variable that holds all stars
 let stars = [...document.querySelectorAll(".fa-star")]

@@ -158,6 +158,9 @@ function cardClick() {
 
 function resetAll() {
 
+    // Reset open cards
+    openCards = []
+
     // Hide congratulations overlay
     document.querySelector(".overlay").style.display = "none"
 
